@@ -13,11 +13,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Customer {
+  id          String   @id @default(uuid())
+  productId   String   @default(uuid())
+  nama        String
+  rewardPoint Int
+  product     Products @relation(fields: [productId], references: [id])
+}
+
 model Products {
-  id String @id @default(uuid())
-  product String
-  price Int
-  amount Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  id        String     @id @default(uuid())
+  product   String
+  price     Int
+  amount    Int
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+  customer  Customer[]
 }
