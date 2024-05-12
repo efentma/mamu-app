@@ -13,12 +13,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Purchase {
+  id         String   @id @default(uuid())
+  productId  String
+  customerId String
+  product    Products @relation(fields: [productId], references: [id])
+  customer   Customer @relation(fields: [customerId], references: [id])
+}
+
 model Customer {
-  id          String   @id @default(uuid())
-  productId   String   @default(uuid())
+  id          String     @id @default(uuid())
+  productId   String     @default(uuid())
   nama        String
   rewardPoint Int
-  product     Products @relation(fields: [productId], references: [id])
+  product     Products   @relation(fields: [productId], references: [id])
+  purchase    Purchase[]
 }
 
 model Products {
@@ -29,4 +38,5 @@ model Products {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @default(now())
   customer  Customer[]
+  purchase  Purchase[]
 }
