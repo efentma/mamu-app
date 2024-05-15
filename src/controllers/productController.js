@@ -2,6 +2,14 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+export const findAllCustomer = async (req,res) => {
+    try {
+        const purchase = await prisma.customer.findMany();
+        res.status(200).json({message: 'All customers who already bought product', purchase})
+    } catch (error) {
+        res.status(500).json({error: 'Internal server error'})
+    }
+}
 export const findAll = async (req, res) => {
     try {
         const product = await prisma.products.findMany();

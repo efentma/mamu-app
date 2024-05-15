@@ -5,11 +5,13 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  findAllCustomer,
 } from "../controllers/productController.js";
 import { authToken } from "../middleware/verifyToken.js";
 
 const r = express.Router();
 
+r.get("/purchase", authToken, findAllCustomer);
 r.get("/product", authToken, findAll);
 r.get("/product/:id", authToken, findOne);
 r.post("/product", authToken, createProduct);
